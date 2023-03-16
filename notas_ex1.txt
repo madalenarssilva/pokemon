@@ -1,0 +1,18 @@
+FALTA: 
+
+- nos favoritos abrir pag pokemon   	(X)
+- mudar favicon                     	(X)   
+- mudar nome que aparece na tab		(X)
+- Favoritos: meter os dados persistentes	(X)	
+- Ver animação de remover da lista		(X)
+- pokedex: ver paginação    -> criar dois hooks diferentes (X)
+
+
+
+- responsividade
+- (search:styled) e ver o erro da imagem, como tirar do chrome
+- ver se a api deixa procurar os nomes todos ----> so se fizesse o infinite ou metesse o offset total ou carregasse no inicio todos os dados mas so mostrasse offset a offset
+
+NOta: 
+align-items: center (horizontal)
+justify-content: center (vertical)

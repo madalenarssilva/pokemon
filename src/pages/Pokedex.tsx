@@ -8,9 +8,11 @@ import Error from "./Error";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useTheme } from "@mui/material";
 import { styled } from "@mui/system";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const Pokedex = () => {
   const [pageIndex, setPageIndex] = useState(0);
+  const matches = useMediaQuery(`(max-width: 768px)`);
 
   // ler dados
   const { data, error, isLoading } = usePokedex(pageIndex);
@@ -93,6 +95,22 @@ const Pokedex = () => {
           color="secondary"
           page={pageIndex + 1}
           onChange={handlePaginationChange}
+          siblingCount={0}
+          size={matches ? "small" : "medium"}
+          sx={[
+            {
+              "& .MuiPagination-ul": {
+                display: "flex",
+                flexDirection: "row",
+              },
+            },
+            {
+              "& .MuiPagination-ul > li": {
+                margin: matches ? "0" : "",
+                padding: matches ? "0.2rem" : "",
+              },
+            },
+          ]}
         />
       </Stack>
     </>
