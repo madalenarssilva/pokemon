@@ -82,7 +82,11 @@ const Pokedex = () => {
     <>
       <Container
         maxWidth="md"
-        style={{ display: "flex", flexDirection: "row" }}
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          padding: matches ? "0" : "",
+        }}
       >
         <SearchBar searchInput={searchInput} updateInput={setSearchInput} />
         <OrderBy orderByInput={orderBy} updateOrderBy={setOrderBy} />

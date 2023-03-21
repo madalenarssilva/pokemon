@@ -6,6 +6,7 @@ import {
   Select,
   MenuItem,
   SelectChangeEvent,
+  useMediaQuery,
 } from "@mui/material";
 import { theme } from "../theme/Theme";
 import SortIcon from "@mui/icons-material/Sort";
@@ -19,8 +20,11 @@ const OrderBy = (props: InputProps) => {
   const handleChange = (event: SelectChangeEvent) => {
     props.updateOrderBy(event.target.value as string);
   };
+
+  const matches = useMediaQuery(`(max-width: 768px)`);
+
   return (
-    <Box sx={{ minWidth: 150 }}>
+    <Box sx={{ minWidth: !matches ? 150 : "" }}>
       <FormControl
         fullWidth
         sx={{
@@ -34,7 +38,7 @@ const OrderBy = (props: InputProps) => {
           sx={{ color: "white", display: "flex" }}
         >
           <SortIcon sx={{ color: "white", marginRight: "0.5rem" }} />
-          Ordenar
+          {!matches ? "Ordenar" : ""}
         </InputLabel>
         <Select
           labelId="demo-simple-select-label"
