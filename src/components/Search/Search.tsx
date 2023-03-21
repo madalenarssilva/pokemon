@@ -6,8 +6,8 @@ import { alpha } from "@mui/material";
 import { useTheme } from "@mui/material";
 
 type InputProps = {
-  updateInput: React.Dispatch<React.SetStateAction<string>>;
-  searchInput: string;
+  updateInput: React.Dispatch<React.SetStateAction<string | undefined>>;
+  searchInput: string | undefined;
 };
 
 const SearchBar = (props: InputProps) => {
@@ -23,7 +23,7 @@ const SearchBar = (props: InputProps) => {
   const theme = useTheme();
 
   return (
-    <Container maxWidth="md">
+    <Container>
       <TextField
         id="search"
         type="search"
@@ -33,7 +33,7 @@ const SearchBar = (props: InputProps) => {
           props.updateInput(e.target.value)
         }
         sx={{
-          width: "80%",
+          width: "100%",
           borderRadius: "10px",
           backgroundColor: alpha("#ffffff", 0.15),
           "&:hover": {

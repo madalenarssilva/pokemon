@@ -38,7 +38,20 @@ const FavItems = (props: FavProps) => {
   });
 
   return (
-    <FavList>
+    <FavList
+      sx={[
+        {
+          transition: "transform 500ms ease-in-out",
+        },
+        {
+          "&:hover": {
+            //(X Y Blur Color)
+            boxShadow: "10px 10px 40px black",
+            transform: "translate(-5px, -5px)",
+          },
+        },
+      ]}
+    >
       <NavLink
         to={`/${props.favoriteItem.name}`}
         style={{

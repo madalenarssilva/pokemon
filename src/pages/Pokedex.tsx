@@ -1,4 +1,4 @@
-import { Grid, Pagination, Stack } from "@mui/material";
+import { Container, Grid, Pagination, Stack } from "@mui/material";
 import { useState, useMemo } from "react";
 import CardPokemon from "../components/CardPokemon";
 import usePokedex from "../hooks/usePokedex";
@@ -9,6 +9,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { useTheme } from "@mui/material";
 import { styled } from "@mui/system";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import OrderBy from "../components/OrderBy";
 
 const Pokedex = () => {
   const [pageIndex, setPageIndex] = useState(0);
@@ -19,7 +20,10 @@ const Pokedex = () => {
   const theme = useTheme();
 
   // input search
-  const [searchInput, setSearchInput] = useState<string>("");
+  const [searchInput, setSearchInput] = useState<string | undefined>("");
+
+  // order by selector
+  const [orderBy, setOrderBy] = useState<string>("");
 
   // handler paginacao
   const handlePaginationChange = (
@@ -34,12 +38,24 @@ const Pokedex = () => {
     if (data === undefined) {
       return [];
     }
-    if (searchInput != null)
-      return data.results.filter((item: Pokemon) =>
-        item.name.toLowerCase().includes(searchInput)
-      );
-    else return data;
-  }, [data, searchInput]);
+    if (searchInput === undefined) {
+      return data.results.sort((a: Pokemon, b: Pokemon) => {
+        if (orderBy === undefined) return 0;
+        if (orderBy === "Crescente") return a.name > b.name ? 1 : -1;
+        else return a.name < b.name ? 1 : -1;
+      });
+    } else {
+      return data.results
+        .filter((item: Pokemon) =>
+          item.name.toLowerCase().includes(searchInput.toLowerCase())
+        )
+        .sort((a: Pokemon, b: Pokemon) => {
+          if (orderBy === undefined) return 0;
+          if (orderBy === "Crescente") return a.name > b.name ? 1 : -1;
+          else return a.name < b.name ? 1 : -1;
+        });
+    }
+  }, [data, searchInput, orderBy]);
 
   // Pagina de erro
   if (error) {
@@ -64,7 +80,13 @@ const Pokedex = () => {
 
   return (
     <>
-      <SearchBar searchInput={searchInput} updateInput={setSearchInput} />
+      <Container
+        maxWidth="md"
+        style={{ display: "flex", flexDirection: "row" }}
+      >
+        <SearchBar searchInput={searchInput} updateInput={setSearchInput} />
+        <OrderBy orderByInput={orderBy} updateOrderBy={setOrderBy} />
+      </Container>
       <Grid
         container
         spacing={3}
